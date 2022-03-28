@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Emp.module.css'
 export const EmployeesDashboard = () => {
-    const [inputValue,setInputValue]=useState("")
-    const [inputValue2,setInputValue2]=useState("")
-    const [inputValue3,setInputValue3]=useState("")
-    const [inputValue4,setInputValue4]=useState("")
-    const [inputValue5,setInputValue5]=useState("")
+    const [inputValue,setInputValue]=useState({})
     const [emp,setEmp]=useState([])
-    // console.log(todos.length)
+    const handleData = (e) => {
+		const {name,value } = e.currentTarget;
+		setInputValue({
+            ...inputValue,
+            [name]:value
+		});
+        // console.log(inputValue)
+	};
     useEffect(()=>{
         getEmp()
     },[])
@@ -17,13 +20,12 @@ export const EmployeesDashboard = () => {
         .then((res)=>{setEmp(res)})
     }
     const handleAdd =()=>{
-        // console.log(inputValue);
         const payload={
-            title:inputValue,
-            gender:inputValue2,
-            dept:inputValue3,
-            role:inputValue4,
-            salary:inputValue5,
+            name:inputValue.names,
+            gender:inputValue.gender,
+            department:inputValue.department,
+            role:inputValue.role,
+            salary:inputValue.salary,
             status:false
         };
         const payloadjson=JSON.stringify(payload)
@@ -56,24 +58,29 @@ export const EmployeesDashboard = () => {
   return  (
     <div className={styles.div3}>
         <div><input placeholder='NAME'
-        value={inputValue}
-        onChange={(e)=>setInputValue(e.target.value)}
+        name="names"
+        value={inputValue.names}
+        onChange={handleData}
         /></div>
           <div><input placeholder='GENDER'
-        value={inputValue2}
-        onChange={(e)=>setInputValue2(e.target.value)}
+          name="gender"
+        value={inputValue.gender}
+        onChange={handleData}
         /></div>
         <div> <input placeholder='DEPARTMENT'
-        value={inputValue3}
-        onChange={(e)=>setInputValue3(e.target.value)}
+          name="department"
+        value={inputValue.department}
+        onChange={handleData}
         /></div>
          <div><input placeholder='ROLE'
-        value={inputValue4}
-        onChange={(e)=>setInputValue4(e.target.value)}
+           name="role"
+        value={inputValue.role}
+        onChange={handleData}
         /></div>
          <div><input placeholder='SALARY'
-        value={inputValue5}
-        onChange={(e)=>setInputValue5(e.target.value)}
+           name="salary"
+        value={inputValue.salary}
+        onChange={handleData}
         /></div>
         <button onClick={handleAdd}>ADD EMPLOYEE</button>
         <div>
@@ -89,9 +96,9 @@ export const EmployeesDashboard = () => {
         <div className={styles.div0}>{
             emp.map((el)=>{
              return  <div className={styles.div1}  key={el.id}>
-            <div  >{el.title}</div>
+            <div  >{el.name}</div>
             <div  >{el.gender}</div>
-            <div  >{el.dept}</div>
+            <div  >{el.department}</div>
             <div  >{el.role}</div>
             <div  >{el.salary}</div>
             </div>

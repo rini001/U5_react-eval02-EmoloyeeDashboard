@@ -1,0 +1,13 @@
+{
+  "employees": [
+    {
+      "name": "Renaissance",
+      "gender": "female",
+      "department": "IT",
+      "role": "sde",
+      "salary": "30000",
+      "status": false,
+      "id": 1
+    }
+  ]
+}
